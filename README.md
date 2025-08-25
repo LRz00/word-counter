@@ -11,8 +11,8 @@ A small Python application that counts how many words you type, considering a wo
 - Counts words based on space key presses.
 - Always-on-top window.
 - Start/Stop tracking with a button.
+- Log of past writing sessions
 
 ## Features to be added.
-- log of writing sessions.
 - daily or session goals
 - reset button.

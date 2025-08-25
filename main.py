@@ -66,7 +66,31 @@ def toggle_tracking():
 def on_close():
     save_session()
     root.destroy()
-    sys.exit
+    sys.exit()
+
+
+def show_sessions():
+    log_window = tk.Toplevel(root)
+    log_window.title("Session Log")
+    log_window.geometry("400x300")
+
+    text_area = tk.Text(log_window, wrap="word", state="normal")
+    text_area.pack(expand=True, fill="both", padx=10, pady=10)
+
+    if not sessions:
+        text_area.insert("end", "No sessions recorded yet. \n")
+    else:
+        for i, s in enumerate(sessions, 1):
+            text_area.insert(
+                "end",
+                f"Session {i}:\n"
+                f"  Date: {s['date']}\n"
+                f"  Words: {s['words']}\n"
+                f"  Duration: {s['duration_minutes']} minutes\n\n"
+            )
+
+    text_area.config(state="disabled")
+
 
 root = tk.Tk()
 root.title("Word Counter")
@@ -77,6 +101,9 @@ label.pack(pady=10)
 
 button = tk.Button(root, text="Turn On", command=toggle_tracking)
 button.pack(pady=10)
+
+options_button = tk.Button(root, text="📁", command=show_sessions, font=("Arial", 10), width=3)
+options_button.pack(pady=5)
 
 listener = keyboard.Listener(on_press=on_press)
 listener.start()

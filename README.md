@@ -16,3 +16,4 @@ A small Python application that counts how many words you type, considering a wo
 ## Features to be added.
 - daily or session goals
 - reset button.
+- pause session button

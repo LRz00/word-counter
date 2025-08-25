@@ -14,5 +14,4 @@ A small Python application that counts how many words you type, considering a wo
 
 ## Features to be added.
 - log of writing sessions.
-- consider the backspace as deleting a word.
 - reset button.

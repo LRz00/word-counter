@@ -10,6 +10,7 @@ word_count = 0
 tracking = False
 session_start = None
 sessions = []
+paused = False  
 LOG_FILE = "sessions_log.json"
 
 def save_session():
@@ -39,8 +40,8 @@ except FileNotFoundError:
     sessions = []
 
 def on_press(key):
-    global word_count, tracking
-    if not tracking:
+    global word_count, tracking, paused
+    if not tracking or paused:   
         return
     try:
         if key == keyboard.Key.space:
@@ -50,17 +51,20 @@ def on_press(key):
         pass
 
 def toggle_tracking():
-    global tracking, word_count, session_start, sessions
+    global tracking, word_count, session_start, sessions, paused
 
     if not tracking:
+        paused = False   
         tracking = True
         word_count = 0
         session_start = time.time()
         button.config(text="Turn Off")
+        pause_button.config(state="normal", text="Pause")
         label.config(text="Words typed: 0")
     else: 
         save_session()
         button.config(text="Turn On")
+        pause_button.config(state="disabled")
         label.config(text=f"Session saved! Words: {word_count}")
 
 def on_close():
@@ -92,6 +96,19 @@ def show_sessions():
     text_area.config(state="disabled")
 
 
+def toggle_pause():
+    global paused
+
+    if not paused:
+        paused = True
+        pause_button.config(text="Unpause")
+        label.config(text=f"Paused - Words typed: {word_count}")
+    else:
+        paused = False
+        pause_button.config(text="Pause")
+        label.config(text=f"Words typed: {word_count}")
+
+
 root = tk.Tk()
 root.title("Word Counter")
 root.attributes("-topmost", True)
@@ -101,6 +118,9 @@ label.pack(pady=10)
 
 button = tk.Button(root, text="Turn On", command=toggle_tracking)
 button.pack(pady=10)
+
+pause_button = tk.Button(root, text="Pause", command=toggle_pause, state="disabled")
+pause_button.pack(pady=5)
 
 options_button = tk.Button(root, text="📁", command=show_sessions, font=("Arial", 10), width=3)
 options_button.pack(pady=5)

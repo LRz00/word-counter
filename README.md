@@ -12,8 +12,9 @@ A small Python application that counts how many words you type, considering a wo
 - Always-on-top window.
 - Start/Stop tracking with a button.
 - Log of past writing sessions
+- Pause session button
 
 ## Features to be added.
 - daily or session goals
 - reset button.
-- pause session button
+- give session a tilte on save (optional)
